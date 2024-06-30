@@ -1,5 +1,5 @@
-export default Cylinder;
-declare class Cylinder extends HTMLElement {
+export default Carousel3D;
+declare class Carousel3D extends HTMLElement {
   static observedAttributes: string[];
   static sheet: CSSStyleSheet;
   renderOverlay: () => void;

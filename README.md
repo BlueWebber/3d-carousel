@@ -1,18 +1,20 @@
-# css3d-cylinder
+# 3d-carousel
 
-[![GitHub license](https://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/BlueWebber/css3d-cylinder/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/css3d-cylinder.svg?style=flat)](https://www.npmjs.com/package/css3d-cylinder) [![minified size](https://img.shields.io/bundlephobia/min/css3d-cylinder) ](https://bundlephobia.com/result?p=css3d-cylinder)[![minzipped size](https://img.shields.io/bundlephobia/minzip/css3d-cylinder) ](https://bundlephobia.com/result?p=css3d-cylinder)![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+[![GitHub license](https://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/BlueWebber/3d-carousel/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/3d-carousel.svg?style=flat)](https://www.npmjs.com/package/3d-carousel) [![minified size](https://img.shields.io/bundlephobia/min/3d-carousel) ](https://bundlephobia.com/result?p=3d-carousel)[![minzipped size](https://img.shields.io/bundlephobia/minzip/3d-carousel) ](https://bundlephobia.com/result?p=3d-carousel)![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ## A simple, light-weight and extensible web component
 
-This tool allows you to create n-faced cylinders with JS and CSS, no third-party packages used.
-The cylinders can have any number of faces, can be dynamically sized or oriented, can be rotated or moved in any direction, and can easily be extended and overridden. however, each face of the cylinder must have an equal width (in case of a horizontally-oriented cylinder) or an equal height (in case of a vertically oriented cylinder).
+This tool allows you to create 3D n-faced carousels (cylinders) with JS and CSS, no third-party packages used.
+The carousels can have any number of faces, can be dynamically sized or oriented, can be rotated or moved in any direction, and can easily be extended and overridden. however, each face of the carousel must have an equal width (in case of a horizontally-oriented carousel) or an equal height (in case of a vertically oriented carousel).
+
+This tool is is a simply a clone of [css3d-cylinder](https://github.com/BlueWebber/css3d-cylinder), with many things renamed and cleaned up, all future updates will be done on this repo.
 
 ## Installation
 
 ### Via NPM:
 
 ```bash
-npm  install  --save  css3d-cylinder
+npm install --save 3d-carousel
 ```
 
 ### Via CDN:
@@ -20,13 +22,13 @@ npm  install  --save  css3d-cylinder
 ES Module:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/css3d-cylinder@latest/dist/index.module.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-carousel@latest/dist/index.module.js"></script>
 ```
 
-non-module (exposes a global Cylinder class):
+non-module (exposes a global `Carousel3D` class):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/css3d-cylinder@latest/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-carousel@latest/dist/index.min.js"></script>
 ```
 
 ## Usage
@@ -34,7 +36,7 @@ non-module (exposes a global Cylinder class):
 In your HTML:
 
 ```html
-<css3d-cylinder>
+<carousel-3d>
   <style>
     #items-container > div {
       height: 200px;
@@ -50,20 +52,20 @@ In your HTML:
   <div>3</div>
   <div>4</div>
   <div>5</div>
-</css3d-cylinder>
+</carousel-3d>
 ```
 
 In Your JS:
 
 ```js
-import Cylinder from "css3d-cylinder";
+import Carousel3D from "3d-carousel";
 // The custom element can have any name you want.
-customElements.define("css3d-cylinder", Cylinder);
+customElements.define("carousel-3d", Carousel3D);
 ```
 
 ## Components
 
-The Cylinder consists of 4 components/elements:
+The Carousel3D web component consists of 4 elements:
 
 ```
 Shadow Root
@@ -76,19 +78,19 @@ Shadow Root
 └── Overlay (Optional)
 ```
 
-- The Shadow Root is isolated from your page's styles, script, etc... and holds everything inside the cylinder element.
+- The Shadow Root is isolated from your page's styles, script, etc... and holds everything inside the carousel element.
 - The Perspective Container holds the Items Container, and sets the CSS `perspective` property to give the Items Container depth, its element is given the ID `perspective-container`.
-- The Items Container is what holds the cylinder's faces, the number of its children is automatically the number of the cylinder's faces, unless the `ignore` is applied to its child, in that case it won't be counted as a face and won't be transformed. its element is given the ID `items-container`.
-- One child of the items container can have the `anchor` class combined with `ignore`, this will make that element get placed in the center of the cylinder.
-- The Items Container's Z-origin gets set to the radius of the cylinder, that way, it'd rotate about its center point.
-- The Items Container's children get transformed, their Z-origin changes to the radius of the cylinder, and then they get rotated incrementally in the X or Y direction depending on the orientation of the cylinder.
-- The radius of the cylinder is calculated by finding the radius of the largest inscribed circle in the regular polygon whose number of sides is that of Items Container's non-ignored children.
-- The overlay is simply an absolutely-positioned div that is placed on top of your perspective container, it takes covers _the total visible area of the Items Container_ by making a `getBoundingClientRect()` call on every face of the cylinder to determine the total visible area.
+- The Items Container is what holds the carousel's faces, the number of its children is automatically the number of the carousel's faces, unless the `ignore` is applied to its child, in that case it won't be counted as a face and won't be transformed. its element is given the ID `items-container`.
+- One child of the items container can have the `anchor` class combined with `ignore`, this will make that element get placed in the center of the carousel.
+- The Items Container's Z-origin gets set to the radius of the carousel, that way, it'd rotate about its center point.
+- The Items Container's children get transformed, their Z-origin changes to the radius of the carousel, and then they get rotated incrementally in the X or Y direction depending on the orientation of the carousel.
+- The radius of the carousel is calculated by finding the radius of the largest inscribed circle in the regular polygon whose number of sides is that of Items Container's non-ignored children.
+- The overlay is simply an absolutely-positioned div that is placed on top of your perspective container, it takes covers _the total visible area of the Items Container_ by making a `getBoundingClientRect()` call on every face of the carousel to determine the total visible area.
 
 ## Styling
 
-The cylinder runs in an isolated shadow DOM, hidden from your page's styles, in order to style it, you need to specify the styles inside the cylinder element, you can do so by simply using `style` or `link` tags, or you can use the `style` attribute.
-You can select the cylinder's components with ID selectors (`#perspective-container`, `#items-container`, `#overlay` ).
+The carousel runs in an isolated shadow DOM, hidden from your page's styles, in order to style it, you need to specify the styles inside the carousel element, you can do so by simply using `style` or `link` tags, or you can use the `style` attribute.
+You can select the carousel's components with ID selectors (`#perspective-container`, `#items-container`, `#overlay` ).
 If you're experiencing performance issues, it's recommended to set `contain` for the children of Items Container to `strict`, and set `will-change` of Items Container to `transform`.
 
 ### CSS Classes
@@ -98,17 +100,17 @@ Children of Items Container are treated differently if they're given the followi
 - `ignore`
   When given that class, the child won't be counted as a face and won't be transformed. It'll lie on top of the first face.
 - `anchor`
-  When given that class combined with `ignore`, this will make that element get placed in the center of the cylinder. acting as a revolving point or a so-called "anchor".
+  When given that class combined with `ignore`, this will make that element get placed in the center of the carousel. acting as a revolving point or a so-called "anchor".
 
 ## Attributes
 
 | name                    | value     | description                                                                                                                                                                                                                                                                                                                                           |
 | ----------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **vertical**            | `boolean` | Makes the cylinder vertically-aligned, by default it's horizontally-aligned                                                                                                                                                                                                                                                                           |
-| with-overlay            | `boolean` | Determines whether the cylinder has an overlay or not, it's better to keep it off unless needed because it uses a lot of `getBoundingClientRect()` calls                                                                                                                                                                                              |
+| **vertical**            | `boolean` | Makes the carousel vertically-aligned, by default it's horizontally-aligned                                                                                                                                                                                                                                                                           |
+| with-overlay            | `boolean` | Determines whether the carousel has an overlay or not, it's better to keep it off unless needed because it uses a lot of `getBoundingClientRect()` calls                                                                                                                                                                                              |
 | items-container-element | `string`  | Sets the items container element (expects an HTML element name), by default it's `div`                                                                                                                                                                                                                                                                |
-| **rotate-negative**     | `boolean` | Makes the cylinder wrap from right to left (by default it wraps from left to right), in case of a vertical cylinder, it makes it wrap from top to bottom                                                                                                                                                                                              |
-| raw                     | `boolean` | Enables `raw mode` for the cylinder, the cylinder won't provide any elements, you'll provide them yourself, and the cylinder will put them inside the shadow DOM. You're expected to provide elements with the following IDs: `#perspective-container`, `#items-container`, `#overlay`. With `#items-container` being inside `#perspective-container` |
+| **rotate-negative**     | `boolean` | Makes the carousel wrap from right to left (by default it wraps from left to right), in case of a vertical carousel, it makes it wrap from top to bottom                                                                                                                                                                                              |
+| raw                     | `boolean` | Enables `raw mode` for the carousel, the carousel won't provide any elements, you'll provide them yourself, and the carousel will put them inside the shadow DOM. You're expected to provide elements with the following IDs: `#perspective-container`, `#items-container`, `#overlay`. With `#items-container` being inside `#perspective-container` |
 | debounce-rerender       | `number`  | Debounces re-renders triggered by thee resize observer, expects a valid integer in milliseconds                                                                                                                                                                                                                                                       |
 | no-resize               | `boolean` | Removes the resize observer and mutation observer, useful for cases where you don't want the observer overhead and expect no resizes or changes to Items Container's children                                                                                                                                                                         |
 
@@ -117,7 +119,7 @@ _Note: for `boolean` attributes, their presence sets them to true, so something 
 
 ## Properties
 
-Every instance of `Cylinder` exposes the following properties:
+Every instance of `Carousel3D` exposes the following properties:
 | name | value | description |
 | ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | perspective | `HTMLElement` | The perspective element |
@@ -126,19 +128,19 @@ Every instance of `Cylinder` exposes the following properties:
 | anchorElem | `HTMLElement` | The anchor element (if present) |
 | items | `NodeList` | The non-ignored children of Items Container |
 | ignoredElems | `NodeList` | The ignored children of Items Container |
-| styleElems | `NodeList` | The style tags in the cylinder |
-| numSides | `integer` | The number of faces of the cylinder, equal to the length of `items` |
-| rotDeg | `integer` | The number of degrees the Items Container should be rotated in the X or Y axis to show the next face of the cylinder |
-| firstRender | `boolean` | Expresses whether the cylinder has done the first render or not, its value is `true` then its set to `false` after the first render |
-| renderOut | `function` | Recalculates the radius of the cylinder and transforms the `items` accordingly, by default, it's called once when the component is connected, then it's called when a cylinder face is resized or when an attribute changes. |
+| styleElems | `NodeList` | The style tags in the carousel |
+| numSides | `integer` | The number of faces of the carousel, equal to the length of `items` |
+| rotDeg | `integer` | The number of degrees the Items Container should be rotated in the X or Y axis to show the next face of the carousel |
+| firstRender | `boolean` | Expresses whether the carousel has done the first render or not, its value is `true` then its set to `false` after the first render |
+| renderOut | `function` | Recalculates the radius of the carousel and transforms the `items` accordingly, by default, it's called once when the component is connected, then it's called when a carousel face is resized or when an attribute changes. |
 | renderOutDebounced | `function` | The debounced `renderOut()` function, based on the `debounce-rerender` attribute |
-| resizeObserver | `ResizeObserver` | The resize observer that observes every face of the cylinder and calls `renderOut()` whenever the dimensions of a face change. |
+| resizeObserver | `ResizeObserver` | The resize observer that observes every face of the carousel and calls `renderOut()` whenever the dimensions of a face change. |
 | mutationObserver | `MutationObserver` | The mutation observer that observes the child list of Items Container and triggers a re-render when their number changes. |
 
 Accessing a property:
 
 ```js
-document.getElementById("your-cylinder-id")[property];
+document.getElementById("your-carousel-id")[property];
 ```
 
 ## Examples
@@ -146,6 +148,7 @@ document.getElementById("your-cylinder-id")[property];
 ### Example 1:
 
 This example creates a 3D logo carousel revolving around a lighthouse image as an anchor.
+
 HTML:
 
 ```html
@@ -155,7 +158,7 @@ HTML:
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Cylinder</title>
+    <title>Carousel3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -174,7 +177,7 @@ HTML:
     </style>
   </head>
   <body>
-    <css3d-cylinder>
+    <carousel-3d>
       <style>
         .logo {
           height: 20vw;
@@ -243,7 +246,7 @@ HTML:
       <div class="logo"><img src="https://logo.uplead.com/apple.com" /></div>
       <div class="logo"><img src="https://logo.uplead.com/netflix.com" /></div>
       <div class="anchor ignore"></div>
-    </css3d-cylinder>
+    </carousel-3d>
     <a
       href="https://uplead.com"
       style="position: absolute; color: white; left: 0; right: 0; bottom: 1rem;"
@@ -257,8 +260,8 @@ JS:
 
 ```js
 // index.js
-import Cylinder from "css3d-cylinder";
-customElements.define("css3d-cylinder", Cylinder);
+import Carousel3D from "3d-carousel";
+customElements.define("carousel-3d", Carousel3D);
 ```
 
 Result: https://jsfiddle.net/w3qkv49r/ (It is highly recommended to view this in fullscreen)
@@ -267,7 +270,8 @@ Result: https://jsfiddle.net/w3qkv49r/ (It is highly recommended to view this in
 
 ### Example 2:
 
-Now, onto more simplistic examples, this example creates a simple 5-faced cylinder with an image on each face.
+Now, onto more simplistic examples, this example creates a simple 5-faced carousel with an image on each face.
+
 HTML (Special thanks to [placedog](https://placedog.net) for providing the images):
 
 ```html
@@ -277,7 +281,7 @@ HTML (Special thanks to [placedog](https://placedog.net) for providing the image
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Cylinder</title>
+    <title>Carousel3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -292,7 +296,7 @@ HTML (Special thanks to [placedog](https://placedog.net) for providing the image
     </style>
   </head>
   <body>
-    <css3d-cylinder>
+    <carousel-3d>
       <style>
         #items-container > div {
           height: 200px;
@@ -320,7 +324,7 @@ HTML (Special thanks to [placedog](https://placedog.net) for providing the image
       <div><img src="https://placedog.net/80/100" /></div>
       <div><img src="https://placedog.net/110/105" /></div>
       <div><img src="https://placedog.net/120/115" /></div>
-    </css3d-cylinder>
+    </carousel-3d>
   </body>
 </html>
 ```
@@ -329,8 +333,8 @@ JS:
 
 ```javascript
 // index.js
-import Cylinder from "css3d-cylinder";
-customElements.define("css3d-cylinder", Cylinder);
+import Carousel3D from "3d-carousel";
+customElements.define("carousel-3d", Carousel3D);
 ```
 
 Result: https://jsfiddle.net/0etbd9nL/
@@ -350,7 +354,7 @@ HTML:
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Cylinder</title>
+    <title>Carousel3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -369,7 +373,7 @@ HTML:
     </style>
   </head>
   <body>
-    <css3d-cylinder id="cylinder" vertical rotate-negative>
+    <carousel-3d id="carousel" vertical rotate-negative>
       <style>
         #items-container > div {
           height: 50vh;
@@ -401,7 +405,7 @@ HTML:
       <div class="filler"></div>
       <div class="filler"></div>
       <div class="filler"></div>
-    </css3d-cylinder>
+    </carousel-3d>
     <div id="controls">
       <button id="prev">prev</button>
       <button id="next">next</button>
@@ -414,18 +418,18 @@ JS:
 
 ```js
 // index.js
-import Cylinder from "css3d-cylinder";
-customElements.define("css3d-cylinder", Cylinder);
+import Carousel3D from "3d-carousel";
+customElements.define("carousel-3d", Carousel3D);
 
-const cylinderElem = document.getElementById("cylinder");
+const carouselElem = document.getElementById("carousel");
 
 const maxRots = 5;
 const minRots = 0;
 let numRotations = 0;
 
 const rotate = () =>
-  (cylinderElem.itemsContainer.style.transform = `rotateX(${
-    numRotations * cylinderElem.rotDeg
+  (carouselElem.itemsContainer.style.transform = `rotateX(${
+    numRotations * carouselElem.rotDeg
   }deg)`);
 const mod = (n, m) => ((n % m) + m) % m;
 

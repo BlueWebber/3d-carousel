@@ -21,7 +21,7 @@ const debounce = (func, timeout) => {
   };
 };
 
-class Cylinder extends HTMLElement {
+class Carousel3D extends HTMLElement {
   static observedAttributes = [
     attrs.overlay,
     attrs.vertical,
@@ -68,7 +68,7 @@ class Cylinder extends HTMLElement {
       ) *
       (itemDim / 2);
 
-    // The perspective, by default it's the: cylinder radius + 4*item dimension (dimension is width or height depending on orientation)
+    // The perspective, by default it's the: carousel radius + 4*item dimension (dimension is width or height depending on orientation)
     this.perspectiveContainer.style.perspective = this.rad + itemDim * 4 + "px";
     this.itemsContainer.style.transformOrigin = `center center -${this.rad}px`;
 
@@ -91,7 +91,7 @@ class Cylinder extends HTMLElement {
 
   connectedCallback() {
     const shadow = this.attachShadow({ mode: "open" });
-    shadow.adoptedStyleSheets = [Cylinder.sheet];
+    shadow.adoptedStyleSheets = [Carousel3D.sheet];
 
     if (this.hasAttribute(attrs.rawMode)) {
       this.perspectiveContainer = this.querySelector("#perspective-container");
@@ -209,8 +209,8 @@ class Cylinder extends HTMLElement {
   }
 }
 
-Cylinder.sheet.replaceSync(`
-    @layer cylinder-sheet {
+Carousel3D.sheet.replaceSync(`
+    @layer carousel-sheet {
       * {
         box-sizing: border-box;
       }
@@ -249,4 +249,4 @@ Cylinder.sheet.replaceSync(`
     }
   `);
 
-export default Cylinder;
+export default Carousel3D;

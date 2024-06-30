@@ -1,6 +1,6 @@
 {
-  "name": "3d-carousel",
-  "version": "1.0.1",
+  "name": "3d-carousel-js",
+  "version": "1.0.2",
   "description": "A simple, light-weight and extensible CSS 3D Carousel",
   "main": "src/index.js",
   "scripts": {

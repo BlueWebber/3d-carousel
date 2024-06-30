@@ -1,6 +1,6 @@
-# 3d-carousel
+# 3d-carousel-js
 
-[![GitHub license](https://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/BlueWebber/3d-carousel/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/3d-carousel.svg?style=flat)](https://www.npmjs.com/package/3d-carousel) [![minified size](https://img.shields.io/bundlephobia/min/3d-carousel) ](https://bundlephobia.com/result?p=3d-carousel)[![minzipped size](https://img.shields.io/bundlephobia/minzip/3d-carousel) ](https://bundlephobia.com/result?p=3d-carousel)![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+[![GitHub license](https://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/BlueWebber/3d-carousel-js/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/3d-carousel-js.svg?style=flat)](https://www.npmjs.com/package/3d-carousel-js) [![minified size](https://img.shields.io/bundlephobia/min/3d-carousel-js) ](https://bundlephobia.com/result?p=3d-carousel-js)[![minzipped size](https://img.shields.io/bundlephobia/minzip/3d-carousel-js) ](https://bundlephobia.com/result?p=3d-carousel-js)![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 ## A simple, light-weight and extensible web component
 
@@ -14,7 +14,7 @@ This tool is is a simply a clone of [css3d-cylinder](https://github.com/BlueWebb
 ### Via NPM:
 
 ```bash
-npm install --save 3d-carousel
+npm install --save 3d-carousel-js
 ```
 
 ### Via CDN:
@@ -22,13 +22,13 @@ npm install --save 3d-carousel
 ES Module:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/3d-carousel@latest/dist/index.module.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-carousel-js@latest/dist/index.module.js"></script>
 ```
 
 non-module (exposes a global `Carousel3D` class):
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/3d-carousel@latest/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/3d-carousel-js@latest/dist/index.min.js"></script>
 ```
 
 ## Usage
@@ -58,7 +58,7 @@ In your HTML:
 In Your JS:
 
 ```js
-import Carousel3D from "3d-carousel";
+import Carousel3D from "3d-carousel-js";
 // The custom element can have any name you want.
 customElements.define("carousel-3d", Carousel3D);
 ```
@@ -134,6 +134,7 @@ Every instance of `Carousel3D` exposes the following properties:
 | firstRender | `boolean` | Expresses whether the carousel has done the first render or not, its value is `true` then its set to `false` after the first render |
 | renderOut | `function` | Recalculates the radius of the carousel and transforms the `items` accordingly, by default, it's called once when the component is connected, then it's called when a carousel face is resized or when an attribute changes. |
 | renderOutDebounced | `function` | The debounced `renderOut()` function, based on the `debounce-rerender` attribute |
+| renderOverlay | `function` | Recalculates the dimensions of the Overlay and resizes it |
 | resizeObserver | `ResizeObserver` | The resize observer that observes every face of the carousel and calls `renderOut()` whenever the dimensions of a face change. |
 | mutationObserver | `MutationObserver` | The mutation observer that observes the child list of Items Container and triggers a re-render when their number changes. |
 
@@ -158,7 +159,7 @@ HTML:
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Carousel3D</title>
+    <title>Carousel 3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -260,11 +261,11 @@ JS:
 
 ```js
 // index.js
-import Carousel3D from "3d-carousel";
+import Carousel3D from "3d-carousel-js";
 customElements.define("carousel-3d", Carousel3D);
 ```
 
-Result: https://jsfiddle.net/w3qkv49r/ (It is highly recommended to view this in fullscreen)
+Result: https://jsfiddle.net/76c2Lux9/ (It is highly recommended to view this in fullscreen)
 
 ![Result gif](https://i.imgur.com/Mr6ScjO.gif)
 
@@ -281,7 +282,7 @@ HTML (Special thanks to [placedog](https://placedog.net) for providing the image
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Carousel3D</title>
+    <title>Carousel 3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -333,11 +334,11 @@ JS:
 
 ```javascript
 // index.js
-import Carousel3D from "3d-carousel";
+import Carousel3D from "3d-carousel-js";
 customElements.define("carousel-3d", Carousel3D);
 ```
 
-Result: https://jsfiddle.net/0etbd9nL/
+Result: https://jsfiddle.net/faLvqjxk/
 
 ![Result gif](https://i.imgur.com/t9GHUAz.gif)
 
@@ -354,7 +355,7 @@ HTML:
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer type="module"></script>
-    <title>Carousel3D</title>
+    <title>Carousel 3D</title>
     <style>
       * {
         box-sizing: border-box;
@@ -418,7 +419,7 @@ JS:
 
 ```js
 // index.js
-import Carousel3D from "3d-carousel";
+import Carousel3D from "3d-carousel-js";
 customElements.define("carousel-3d", Carousel3D);
 
 const carouselElem = document.getElementById("carousel");
@@ -444,6 +445,6 @@ document.getElementById("next").onclick = () => {
 };
 ```
 
-Result: https://jsfiddle.net/9qkbtr57/
+Result: https://jsfiddle.net/5y0q4xf1/
 
 ![Result gif](https://i.imgur.com/bgPdzLw.gif)

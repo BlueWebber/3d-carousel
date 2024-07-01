@@ -11,16 +11,6 @@ const attrs = {
 // changing those attrs triggers a re-render
 const rerenderingAttrs = [attrs.vertical, attrs.rotateNegative];
 
-const debounce = (func, timeout) => {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
-};
-
 class Carousel3D extends HTMLElement {
   static observedAttributes = [
     attrs.overlay,
@@ -29,6 +19,15 @@ class Carousel3D extends HTMLElement {
     attrs.debounce,
   ];
   static sheet = new CSSStyleSheet();
+  static debounce = (func, timeout) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
+    };
+  };
 
   constructor() {
     super();
@@ -187,7 +186,10 @@ class Carousel3D extends HTMLElement {
         if (newVal === "-1") {
           this.renderOutDebounced = () => {};
         } else if (newVal !== null) {
-          this.renderOutDebounced = debounce(this.renderOut, parseInt(newVal));
+          this.renderOutDebounced = Carousel3D.debounce(
+            this.renderOut,
+            parseInt(newVal)
+          );
         } else {
           this.renderOutDebounced = this.renderOut;
         }

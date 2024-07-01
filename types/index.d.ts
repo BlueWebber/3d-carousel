@@ -2,6 +2,7 @@ export default Carousel3D;
 declare class Carousel3D extends HTMLElement {
   static observedAttributes: string[];
   static sheet: CSSStyleSheet;
+  static debounce: (func: (...args: any[]) => any, timeout: number) => void;
   renderOverlay: () => void;
   renderOut: () => void;
   rad: number;

@@ -1,22 +1,21 @@
-const attrs = {
-  overlay: "with-overlay",
-  vertical: "vertical",
-  itemsContainerElem: "items-container-element",
-  rotateNegative: "rotate-negative",
-  rawMode: "raw",
-  debounce: "debounce-rerender",
-  noResize: "no-resize",
-};
-
-// changing those attrs triggers a re-render
-const rerenderingAttrs = [attrs.vertical, attrs.rotateNegative];
-
 class Carousel3D extends HTMLElement {
+  static attrs = {
+    overlay: "with-overlay",
+    vertical: "vertical",
+    itemsContainerElem: "items-container-element",
+    rotateNegative: "rotate-negative",
+    rawMode: "raw",
+    debounce: "debounce-rerender",
+    noResize: "no-resize",
+  };
+
+  // changing those this.attrs triggers a re-render
+  static rerenderingAttrs = [this.attrs.vertical, this.attrs.rotateNegative];
   static observedAttributes = [
-    attrs.overlay,
-    attrs.vertical,
-    attrs.rotateNegative,
-    attrs.debounce,
+    this.attrs.overlay,
+    this.attrs.vertical,
+    this.attrs.rotateNegative,
+    this.attrs.debounce,
   ];
   static sheet = new CSSStyleSheet();
   static debounce = (func, timeout) => {
@@ -55,7 +54,7 @@ class Carousel3D extends HTMLElement {
     const itemStyle = getComputedStyle(this.itemsContainer.children[0]);
     // The width or height of each item, which will be used depends on orientation
     const itemDim = parseInt(
-      itemStyle[this[attrs.vertical] ? "height" : "width"].replace(
+      itemStyle[this[this.attrs.vertical] ? "height" : "width"].replace(
         /[^0-9\.]+/g,
         ""
       )
@@ -74,7 +73,7 @@ class Carousel3D extends HTMLElement {
     for (let i = 0; i < this.numSides; i++) {
       const elem = this.items[i];
       elem.style.transformOrigin = `center center -${this.rad}px`;
-      elem.style.transform = `rotate${this[attrs.vertical] ? "X" : "Y"}(${
+      elem.style.transform = `rotate${this[this.attrs.vertical] ? "X" : "Y"}(${
         this.rotateMultiplier * i * this.rotDeg
       }deg)`;
     }
@@ -83,7 +82,7 @@ class Carousel3D extends HTMLElement {
       this.anchorElem.style.translate = `0px 0px -${this.rad}px`;
     }
 
-    if (this[attrs.overlay]) {
+    if (this[this.attrs.overlay]) {
       this.renderOverlay();
     }
   };
@@ -92,7 +91,7 @@ class Carousel3D extends HTMLElement {
     const shadow = this.attachShadow({ mode: "open" });
     shadow.adoptedStyleSheets = [Carousel3D.sheet];
 
-    if (this.hasAttribute(attrs.rawMode)) {
+    if (this.hasAttribute(this.attrs.rawMode)) {
       this.perspectiveContainer = this.querySelector("#perspective-container");
       this.itemsContainer = this.querySelector("#items-container");
       this.overlay = this.querySelector("#overlay");
@@ -112,7 +111,7 @@ class Carousel3D extends HTMLElement {
       this.perspectiveContainer = document.createElement("div");
       this.perspectiveContainer.id = "perspective-container";
       this.itemsContainer = document.createElement(
-        this.getAttribute(attrs.itemsContainerElem) || "div"
+        this.getAttribute(this.attrs.itemsContainerElem) || "div"
       );
       this.itemsContainer.id = "items-container";
       this.itemsContainer.append(...this.items, ...this.ignoredElems);
@@ -133,7 +132,7 @@ class Carousel3D extends HTMLElement {
     if (!this.rotateMultiplier) this.rotateMultiplier = 1;
     if (!this.renderOutDebounced) this.renderOutDebounced = this.renderOut;
 
-    if (!this.hasAttribute(attrs.noResize)) {
+    if (!this.hasAttribute(this.attrs.noResize)) {
       this.resizeObserver = new ResizeObserver((entries) => {
         if (this.firstRender) {
           this.renderOut();
@@ -166,23 +165,23 @@ class Carousel3D extends HTMLElement {
 
   attributeChangedCallback(name, oldVal, newVal) {
     switch (name) {
-      case attrs.overlay: {
+      case this.attrs.overlay: {
         // if the newVal is not equal to null, the attribute is present
         if (newVal !== null) {
-          this[attrs.overlay] = true;
+          this[this.attrs.overlay] = true;
           this.overlay.style.display = "block";
           this.renderOverlay();
         } else {
-          this[attrs.overlay] = false;
+          this[this.attrs.overlay] = false;
           this.overlay.style.display = "none";
         }
         break;
       }
-      case attrs.rotateNegative: {
+      case this.attrs.rotateNegative: {
         this.rotateMultiplier = newVal !== null ? -1 : 1;
         break;
       }
-      case attrs.debounce: {
+      case this.attrs.debounce: {
         if (newVal === "-1") {
           this.renderOutDebounced = () => {};
         } else if (newVal !== null) {
@@ -200,7 +199,7 @@ class Carousel3D extends HTMLElement {
       }
     }
 
-    if (rerenderingAttrs.includes(name)) {
+    if (this.rerenderingAttrs.includes(name)) {
       this.itemsContainer && this.renderOut();
     }
   }

@@ -265,7 +265,7 @@ import Carousel3D from "3d-carousel-js";
 customElements.define("carousel-3d", Carousel3D);
 ```
 
-Result: https://jsfiddle.net/76c2Lux9/ (It is highly recommended to view this in fullscreen)
+Result: https://jsfiddle.net/9vd2Lpmr/ (It is highly recommended to view this in fullscreen)
 
 ![Result gif](https://i.imgur.com/Mr6ScjO.gif)
 
